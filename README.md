@@ -7,7 +7,7 @@
 - **Generated**: Automatically by Colab on March 06, 2025 (based on current date).
 
 ## Poster
-![SkillWiser Poster](https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80)  
+![SkillWiser Poster]([https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80](https://github.com/naikaishwarya23/SkillWiser/blob/main/Group2Poster.pptx))  
 *Replace this placeholder with your own poster link (e.g., hosted on Google Drive or GitHub).*
 
 ## Key Components
