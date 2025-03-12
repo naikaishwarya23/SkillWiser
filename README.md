@@ -1,57 +1,74 @@
-# SkillWiser: Job Posting Skill Analysis with SpaCy and TF-IDF
+# SkillWiser
 
 ## Overview
-`SkillWiser.ipynb` is a data science project designed to analyze job postings, extract skills using SpaCy's Named Entity Recognition (NER), cluster job roles based on skill similarity using TF-IDF and KMeans, and visualize insights. This notebook processes job data from `Postings.csv`, cleans job titles, identifies key skills, and provides clustering-based analysis and visualizations.
+SkillWiser is a Python-based data analysis and visualization project designed to extract and analyze job market trends, particularly focusing on in-demand skills. The project utilizes Natural Language Processing (NLP) techniques and machine learning to clean job titles, extract skills from job descriptions, and cluster job roles based on their required skills.
 
-- **Original Colab File**: [Google Colab Link](https://colab.research.google.com/drive/1lG-EzWqxYcfslN4jj5Sc7Y2MYO8PT_So)
-- **Generated**: Automatically by Colab on March 06, 2025 (based on current date).
+## Features
+- **Data Cleaning:** Cleans job titles to ensure consistency and remove unnecessary words.
+- **Skill Extraction:** Uses Named Entity Recognition (NER) with spaCy to extract skills from job descriptions.
+- **Data Visualization:** Generates bar charts and word clouds to display trends in hiring and skill demand.
+- **Clustering:** Groups job roles based on extracted skills using TF-IDF and K-Means clustering.
 
-## Poster
-![SkillWiser Poster]([https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80](https://github.com/naikaishwarya23/SkillWiser/blob/main/Group2Poster.pptx))  
-*Replace this placeholder with your own poster link (e.g., hosted on Google Drive or GitHub).*
+## Installation
+To run this project, install the required dependencies:
 
-## Key Components
+```bash
+pip install spacy squarify pandas scikit-learn matplotlib seaborn numpy wordcloud
+python -m spacy download en_core_web_md
+```
 
-### 1. Setup
-- **Libraries Installed**:
-  - `spacy`: For NER and text processing.
-  - `en_core_web_md`: SpaCy’s medium English model.
-  - `squarify`: (Unused in this version but installed).
-- **Dependencies**: `pandas`, `numpy`, `matplotlib`, `seaborn`, `scikit-learn`, `wordcloud`.
+## Dataset
+The project uses a CSV file named `Postings.csv`, which contains job postings with relevant columns such as `job_title`, `company`, `job_summary`, etc.
 
-### 2. Data Loading
-- **Source**: `Postings.csv` (expected columns: `job_title`, `company`, `job_summary`).
-- **Preprocessing**: 
-  - Missing `job_summary` values filled with "EDA".
-  - Job titles cleaned to remove numbers, special characters, and unnecessary words (e.g., "senior", "remote").
+## Usage
+1. **Load the dataset**  
+   ```python
+   import pandas as pd
+   df = pd.read_csv('Postings.csv')
+   ```
 
-### 3. Skill Extraction
-- **Method**: SpaCy NER extracts entities labeled `ORG`, `PRODUCT`, `LANGUAGE`, or `SKILL`.
-- **Filtering**: 
-  - Excludes job titles and irrelevant terms (e.g., "data scientist", "manager").
-  - Replaces "microsoft" with "Azure" and "bi" with "Power BI".
-  - Keeps skills appearing >15 times; removes stopwords from `ExplicitStopWords.txt`.
+2. **Clean job titles**  
+   ```python
+   df['cleaned_job_title'] = df['job_title'].apply(clean_job_title)
+   ```
 
-### 4. Clustering
-- **Vectorization**: TF-IDF on skill strings (max 10 features).
-- **Algorithm**: KMeans with 5 clusters.
-- **Evaluation**: Silhouette Score and Calinski-Harabasz Index.
+3. **Extract skills using NLP**  
+   ```python
+   df['extracted_skills'] = df['job_summary'].apply(extract_skills)
+   ```
 
-### 5. Visualizations
-- **Bar Chart**: Top 10 companies by job postings.
-- **Word Cloud**: Top 30 skills.
-- **t-SNE**: 2D cluster visualization.
-- **Lollipop Chart**: Top 5 job titles by frequency.
-- **Radar Charts**: Skill profiles for top 5 job titles.
+4. **Filter out irrelevant words**  
+   ```python
+   df['extracted_skills'] = df['extracted_skills'].apply(remove_words)
+   ```
 
-### 6. Analysis Functions
-- **`get_top_skills_for_job`**: Returns top skills for a job title based on TF-IDF scores within its cluster.
-- **`get_similar_job_titles`**: Identifies similar job titles in the same cluster.
+5. **Visualize skill trends**  
+   ```python
+   wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(word_frequencies)
+   plt.imshow(wordcloud, interpolation='bilinear')
+   plt.axis('off')
+   plt.show()
+   ```
 
-## Getting Started
+6. **Cluster job roles based on skills**  
+   ```python
+   vectorizer = TfidfVectorizer()
+   X = vectorizer.fit_transform(df['skills_string'])
+   kmeans = KMeans(n_clusters=5, random_state=42)
+   df['cluster'] = kmeans.fit_predict(X)
+   ```
 
-### Prerequisites
-- **Environment**: Google Colab (recommended) or local Python setup.
-- **Files**:
-  - `Postings.csv`: Job postings dataset.
-  - `ExplicitStopWords.txt`: Custom stopword list.
+## Results
+- **Top Hiring Companies:** Displays the top 10 companies hiring in the dataset.
+- **Most In-Demand Skills:** Uses a word cloud to highlight the top 20 skills in job postings.
+- **Clustered Job Titles:** Groups similar job roles based on their required skills.
+
+## Future Enhancements
+- Expand skill extraction to include domain-specific terminologies.
+- Integrate a job recommendation system based on extracted skills.
+- Improve clustering with advanced NLP techniques like BERT embeddings.
+
+## Contributors
+- **Aishwarya Naik**
+
+
