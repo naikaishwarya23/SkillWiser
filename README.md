@@ -3,6 +3,9 @@
 ## Overview
 SkillWiser is a Python-based data analysis and visualization project designed to extract and analyze job market trends, particularly focusing on in-demand skills. The project utilizes Natural Language Processing (NLP) techniques and machine learning to clean job titles, extract skills from job descriptions, and cluster job roles based on their required skills.
 
+## Poster
+https://github.com/naikaishwarya23/SkillWiser/blob/main/poster.jpeg
+
 ## Features
 - **Data Cleaning:** Cleans job titles to ensure consistency and remove unnecessary words.
 - **Skill Extraction:** Uses Named Entity Recognition (NER) with spaCy to extract skills from job descriptions.
